@@ -1,1 +1,1 @@
-# siddhi-plugin-idea-backup
+# Siddhi-Intellij-Plugin

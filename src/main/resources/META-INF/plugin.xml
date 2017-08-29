@@ -1,0 +1,107 @@
+<idea-plugin>
+    <id>org.wso2</id>
+    <name>Siddhi</name>
+    <version>0.1</version>
+    <vendor email="support@wso2.com" url="http://wso2.org">WSO2 Inc.</vendor>
+    <description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+
+    ]]></description>
+
+    <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <!-- file type -->
+        <fileTypeFactory implementation="org.wso2.plugins.idea.SiddhiFileTypeFactory"/>
+
+        <!--parser-->
+        <lang.parserDefinition language="Siddhi"
+                               implementationClass="org.wso2.plugins.idea.SiddhiParserDefinition"/>
+        <!-- highlighting -->
+        <lang.syntaxHighlighterFactory language="Siddhi"
+                                       implementationClass="org.wso2.plugins.idea.highlighter.SiddhiSyntaxHighlighterFactory"/>
+        <colorSettingsPage implementation="org.wso2.plugins.idea.highlighter.SiddhiColorSettingsPage"/>
+        <!-- Anootator -->
+        <annotator language="Siddhi"
+                   implementationClass="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiAnnotator"/>
+        <!--structure view-->
+        <lang.ast.factory language="Siddhi"
+                          implementationClass="org.wso2.plugins.idea.SiddhiASTFactory"/>
+        <!--completion-->
+        <completion.contributor language="Siddhi"
+                                implementationClass="org.wso2.plugins.idea.completion.SiddhiCompletionContributor"/>
+        <completion.contributor language="Siddhi"
+                                implementationClass="org.wso2.plugins.idea.completion.SiddhiKeywordsCompletionContributor"/>
+        <!--spell checking-->
+        <spellchecker.support language="Siddhi"
+                              implementationClass="org.wso2.plugins.idea.spellchecker.SiddhiSpellcheckingStrategy"/>
+
+        <!-- sdk -->
+        <sdkType implementation="org.wso2.plugins.idea.sdk.SiddhiSdkType"/>
+        <projectSdkSetupValidator id="SiddhiSdk"
+                                  implementation="org.wso2.plugins.idea.codeInsight.daemon.impl.SiddhiProjectSdkSetupValidator"/>
+        <library.presentationProvider
+                implementation="org.wso2.plugins.idea.sdk.SiddhiSdkLibraryPresentationProvider"/>
+        <applicationService serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiPathModificationTracker"/>
+
+        <projectService serviceInterface="org.wso2.plugins.idea.sdk.SiddhiSdkService"
+                        serviceImplementation="org.wso2.plugins.idea.sdk.SiddhiSdkService"
+                        overrides="false"/>
+
+        <!-- module -->
+        <moduleType id="SIDDHI_MODULE" implementationClass="org.wso2.plugins.idea.SiddhiModuleType"/>
+        <moduleConfigurationEditorProvider implementation="org.wso2.plugins.idea.configuration.SiddhiModuleEditorsProvider" order="first"/>
+        <editorNotificationProvider
+                implementation="org.wso2.plugins.idea.inspections.WrongModuleTypeNotificationProvider"/>
+
+        <!-- run application -->
+        <programRunner id="siddhiRunner" implementation="org.wso2.plugins.idea.runconfig.SiddhiRunner"/>
+
+        <configurationType implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationType"/>
+        <runConfigurationProducer implementation="org.wso2.plugins.idea.runconfig.application.SiddhiApplicationRunConfigurationProducer"/>
+
+        <!--<runLineMarkerContributor language="Siddhi" implementationClass="org.wso2.plugins.idea.runconfig
+        .SiddhiRunLineMarkerProvider"/>
+        <console.folding implementation="org.wso2.plugins.idea.runconfig.SiddhiConsoleFolding"/> -->
+
+        <!-- debugger -->
+        <programRunner id="ballerinaDebugger" implementation="org.wso2.plugins.idea.runconfig.SiddhiDebugger"/>
+        <xdebugger.breakpointType implementation="org.wso2.plugins.idea.debugger.breakpoint.SiddhiBreakPointType"/>
+
+        <!--project -->
+        <applicationService serviceImplementation="org.wso2.plugins.idea.project.SiddhiApplicationLibrariesService"/>
+        <projectService serviceImplementation="org.wso2.plugins.idea.project.SiddhiProjectLibrariesService"/>
+        <projectConfigurable id="Siddhi" groupId="language" provider="org.wso2.plugins.idea.configuration.SiddhiConfigurableProvider"
+                             dynamic="true"/>
+        <projectExtension implementation="org.wso2.plugins.idea.project.SiddhiProjectExtension"/>
+        <applicationService serviceImplementation="org.wso2.plugins.idea.codeInsight.imports.SiddhiCodeInsightSettings"/>
+
+        <!-- templates -->
+        <internalFileTemplate name="Siddhi Main"/>
+
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="Siddhi.NewSiddhiFile" class="org.wso2.plugins.idea.actions.SiddhiCreateFileAction"
+                text="Siddhi File" description="Create new Siddhi file">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+        </action>
+    </actions>
+
+</idea-plugin>
